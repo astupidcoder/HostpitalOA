@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.ysu.dao.ContactDao">
+
+	<resultMap type="Contact" id="ContactResult">
+		<result property="id" column="id"/>
+		<result property="userNo1" column="userNo1"/>
+		<result property="email" column="email"/>
+		<result property="tel" column="tel"/>
+		<result property="qq" column="qq"/>
+		<association property="doctor" column="userNo2" select="edu.ysu.dao.DoctorDao.getByUserNo"/>
+	</resultMap>
+
+<!-- <select id="getByUserName" parameterType="String" resultMap="ManagerResult">
+select * from t_manager where userName=#{userName}
+</select> -->
+
+<!-- <insert id="add" useGeneratedKeys="true" parameterType="Contact">
+insert into t_appoint values(null,#{userNo1},#{userNo2})
+</insert> -->
+
+<select id="list" parameterType="Map" resultMap="ContactResult">
+<if test="userNo!='' and userNo!=null">
+select * from t_contact where userNo1=#{userNo}
+</if>
+
+<if test="searchName!='' and searchName!=null">
+and userName like "%" #{searchName} "%"
+</if>
+<if test="start!=null and size!=null">
+				limit #{start},#{size}
+</if>
+</select>
+
+<select id="count" parameterType="Map" resultType="Integer">
+select count(*) from t_contact where userNo1=#{userNo}
+</select>
+
+<update id="update" parameterType="Contact">
+	update t_contact 
+	<set>
+		<if test="userName!='' and userName!=null">
+			userName=#{userName},
+		</if>
+		<if test="tel!='' and tel!=null">
+			tel=#{tel},
+		</if>
+		<if test="email!='' and email!=null">
+			email=#{email},
+		</if>
+		<if test="qq!='' and qq!=null">
+			qq=#{qq},
+		</if>
+		<if test="remark!='' and remark!=null">
+			remark=#{remark},
+		</if>
+	</set>
+	where id=#{id} 
+	</update>
+<insert id="add" useGeneratedKeys="true" parameterType="Contact">
+insert into t_contact values(null,#{userNo1},null,#{userName},#{email},#{tel},#{qq},#{remark})
+</insert>
+
+<delete id="delete" parameterType="Integer">
+delete from t_contact
+	<if test="idList!=null and idList.size>0">
+		<where>
+				id in
+			<foreach item="contactId" collection="idList" open="(" separator="," close=")">
+				#{contactId}
+			</foreach>
+		</where>
+	</if>
+</delete>
+
+</mapper> 

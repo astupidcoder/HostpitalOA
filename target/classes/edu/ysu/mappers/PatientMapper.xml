@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.ysu.dao.PatientDao">
+
+	<resultMap type="Patient" id="PatientResult">
+		<result property="id" column="id"/>
+		<result property="userNo" column="userNo"/>
+		<result property="userName" column="userName"/>
+		<result property="password" column="password"/>
+		<result property="sex" column="sex"/>
+		<result property="age" column="age"/>
+		<result property="degree" column="degree"/>
+		<result property="birthday" column="birthday"/>
+	     <result property="status" column="status"/>
+      <association property="office" column="officeNo" select="edu.ysu.dao.OfficeDao.findByNo"></association>
+	     
+	</resultMap>
+
+<select id="getByUserNo" parameterType="String" resultMap="PatientResult">
+select * from t_patient where userNo=#{userNo}
+</select>
+	
+</mapper> 

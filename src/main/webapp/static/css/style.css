@@ -1,0 +1,115 @@
+
+.icon {
+    max-width: 10%;
+    height: auto;
+}
+body{
+		padding-top: 10px;
+		padding-bottom: 40px;
+	}
+	
+
+.tc {
+	text-align: center;
+	margin: 0px; padding: 0px;
+}
+
+.tc a {
+	text-decoration: none;
+}
+.tc a:hover {
+	text-decoration: underline;
+}
+
+.tuhuo{
+display: block;
+float: left;
+font-family: arial;
+font-size: 12px;
+font-style: normal;
+font-variant: normal;
+font-weight: normal;
+height: 228px;
+line-height: 18px;
+overflow-x: hidden;
+overflow-y: hidden;
+position: relative;
+width: 330px;
+zoom: 1;
+}
+
+.fouce{
+background-attachment: scroll;
+background-clip: border-box;
+background-color: rgb(255, 204, 0);
+background-image: none;
+background-origin: padding-box;
+background-size: auto;
+border-bottom-color: rgb(255, 0, 0);
+border-bottom-style: solid;
+border-bottom-width: 1px;
+border-image-outset: 0px;
+border-image-repeat: stretch;
+border-image-slice: 100%;
+border-image-source: none;
+border-image-width: 1;
+border-left-color: rgb(255, 0, 0);
+border-left-style: solid;
+border-left-width: 1px;
+border-right-color: rgb(255, 0, 0);
+border-right-style: solid;
+border-right-width: 1px;
+border-top-color: rgb(255, 0, 0);
+border-top-style: solid;
+border-top-width: 1px;
+color: rgb(255, 0, 0);
+display: list-item;
+float: left;
+font-family: tahoma, arial, ����;
+font-size: 12px;
+font-style: normal;
+font-variant: normal;
+font-weight: normal;
+height: 18px;
+line-height: 18px;
+list-style-image: none;
+list-style-position: outside;
+list-style-type: none;
+margin-bottom: 0px;
+margin-left: 2px;
+margin-right: 0px;
+margin-top: 0px;
+padding-bottom: 1px;
+padding-left: 4px;
+padding-right: 4px;
+padding-top: 1px;
+text-align: left;
+width: 7px;
+zoom: 1;
+}
+
+
+
+.tuhuo ul {
+    bottom: 30px;
+    position: absolute;
+    right: 10px;
+	margin:0px 0px 0px 0px;
+	padding:0px;
+	list-style: none;
+}
+.tuhuo ul li {
+    background: none repeat scroll 0 0 #EFEFEF;
+    border: 1px solid #CCCCCC;
+    float: left;
+    padding: 1px 4px;
+	margin:0px 0px 0px 2px;
+}
+.tuhuo ul li.fouce {
+    background: none repeat scroll 0 0 #FFCC00;
+    border: 1px solid #FF0000;
+    color: #FF0000;
+}
+
+
+

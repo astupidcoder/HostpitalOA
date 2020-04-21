@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.ysu.dao.OfficeDao">
+
+	<resultMap type="Office" id="OfficeResult">
+		<result property="id" column="id"/>
+		<result property="officeNo" column="officeNo"/>
+		<result property="officeName" column="officeName"/>
+		<result property="wardNo" column="wardNo"/>
+		<result property="bedNum" column="bedNum"/>
+		<result property="officeNo" column="officeNo"/>
+		<association property="doctor" column="dirNo" select="edu.ysu.dao.DoctorDao.getByUserNo"/>
+	</resultMap>
+
+<!-- <select id="getByUserNo" parameterType="String" resultMap="OfficeResult">
+select * from t_office where userNo=#{userNo}
+</select>
+
+<update id="update" parameterType="Office">
+	update t_office 
+	<set>
+		<if test="profile!='' and profile!=null">
+			profile=#{profile},
+		</if>
+		<if test="imageName!='' and imageName!=null">
+			imageName=#{imageName},
+		</if>
+		<if test="sign!='' and sign!=null">
+			sign=#{sign},
+		</if>
+	</set>
+	where userNo=#{userNo}
+	</update>
+	 -->
+<select id="list" parameterType="Map" resultMap="OfficeResult">
+select * from t_office o,t_doctor d where o.dirNo=d.userNo
+	<if test="officeName!=null and officeName!=''">
+		and officeName like "%" #{officeName} "%"
+	</if>
+	<if test="officeNo!=null and officeNo!=''">
+		and o.officeNo=#{officeNo}
+	</if>
+	<if test="dirName!=null and dirName!=''">
+		and userName like "%" #{dirName} "%"
+	</if>
+<if test="start!=null and size!=null">
+			limit #{start},#{size}
+</if>
+</select>
+<select id="count" parameterType="Map" resultType="Integer">
+select count(*) as total from t_office o,t_doctor d where o.dirNo=d.userNo
+	<if test="officeName!=null and officeName!=''">
+		and officeName like "%" #{officeName} "%"
+	</if>
+	<if test="officeNo!=null and officeNo!=''">
+		and o.officeNo=#{officeNo}
+	</if>
+	<if test="dirName!=null and dirName!=''">
+		and userName like "%" #{dirName} "%"
+	</if>
+</select>
+<!-- <select id="search" parameterType="String" resultMap="OfficeResult">
+select *from t_office
+<where>
+userName like "%" #{doctName} "%"
+</where>
+</select> -->
+<select id="findByNo" parameterType="String" resultMap="OfficeResult">
+	select *from t_office
+	<where>
+	officeNo=#{officeNo}
+	</where>
+</select>
+<insert id="add" useGeneratedKeys="true" parameterType="Office">
+insert into t_office values(null,#{officeNo},#{officeName},#{wardNo},#{bedNum},#{doctor.userNo})
+</insert>
+<update id="update" parameterType="Office">
+	update t_office 
+	<set>
+		<if test="officeNo!='' and officeNo!=null">
+			officeNo=#{officeNo},
+		</if>
+		<if test="officeName!='' and officeName!=null">
+			officeName=#{officeName},
+		</if>
+		<if test="wardNo!='' and wardNo!=null">
+			wardNo=#{wardNo},
+		</if>
+		<if test="bedNum!='' and bedNum!=null">
+			bedNum=#{bedNum},
+		</if>
+		<if test="doctor.userNo!='' and doctor.userNo!=null">
+			dirNo=#{doctor.userNo},
+		</if>
+	</set>
+	where id=#{id}
+	</update>
+	
+<delete id="delete" parameterType="Map">
+	delete from t_office 
+	<if test="idList!=null and idList.size>0">
+		<where>
+		 id in 
+		<foreach item="officeId" collection="idList" open="(" separator="," close=")">
+		#{officeId}
+		</foreach>
+		</where>
+	</if>
+</delete>
+
+
+	<select id="search" parameterType="String" resultMap="OfficeResult">
+	select *from t_office
+		<where>
+			officeName like "%" #{officeName} "%"
+		</where>
+	</select>
+</mapper> 
